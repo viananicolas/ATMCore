@@ -4,5 +4,6 @@ Tecnologias empregadas
     • Angular 6
     • Node v11.13.0
     • Visual Studio 2017 (15.9.11)
+    • Azure
 
-https://atmcore.azurewebsites.net/ 
+Link para testar: https://atmcore.azurewebsites.net/ 
