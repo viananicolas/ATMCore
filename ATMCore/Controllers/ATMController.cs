@@ -12,50 +12,35 @@ namespace ATMCore.Controllers
     public class ATMController : ControllerBase
     {
         private static readonly decimal[] BankNotes = {
-            2m, 5m, 10m, 20m, 50m, 100m
+           10m, 20m, 50m
         };
         [HttpPost]
         public IActionResult PostWithdrawal([FromBody] WithdrawalRequest withdrawalRequest)
         {
-            if(withdrawalRequest.Amount % 2 == 0)
-                return Ok(CheckBankNotes(withdrawalRequest));
-            return BadRequest("Invalid value");
+            return Ok(CheckBankNotes(withdrawalRequest));
         }
 
         private static Withdrawal CheckBankNotes(WithdrawalRequest withdrawalRequest)
         {
             var withdrawal = new Withdrawal();
-            while (withdrawalRequest.Amount >= BankNotes[5])
+            var withdrawalAmount = withdrawalRequest.Amount;
+            while (withdrawalAmount >= BankNotes[2])
             {
-                withdrawalRequest.Amount -= BankNotes[5];
-                withdrawal.HundredReaisAmount++;
-            }
-            while (withdrawalRequest.Amount >= BankNotes[4])
-            {
-                withdrawalRequest.Amount -= BankNotes[4];
+                withdrawalAmount -= BankNotes[2];
                 withdrawal.FiftyReaisAmount++;
             }
-            while (withdrawalRequest.Amount >= BankNotes[3])
+            while (withdrawalAmount >= BankNotes[1])
             {
-                withdrawalRequest.Amount -= BankNotes[3];
+                withdrawalAmount -= BankNotes[1];
                 withdrawal.TwentyReaisAmount++;
             }
-            while (withdrawalRequest.Amount >= BankNotes[2])
+            while (withdrawalAmount >= BankNotes[0])
             {
-                withdrawalRequest.Amount -= BankNotes[2];
+                withdrawalAmount -= BankNotes[0];
                 withdrawal.TenReaisAmount++;
             }
-            while (withdrawalRequest.Amount >= BankNotes[1])
-            {
-                withdrawalRequest.Amount -= BankNotes[1];
-                withdrawal.FiveReaisAmount++;
-            }
-            while (withdrawalRequest.Amount >= BankNotes[0])
-            {
-                withdrawalRequest.Amount -= BankNotes[0];
-                withdrawal.TwoReaisAmount++;
-            }
-
+            if (withdrawalAmount != 0)
+                withdrawal.Message = "Valor inválido. Sacando o valor mais próximo...";
             return withdrawal;
         }
     }

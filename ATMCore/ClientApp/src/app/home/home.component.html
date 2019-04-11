@@ -1,4 +1,4 @@
-<h1>Hello, world!</h1>
+<!-- <h1>Hello, world!</h1>
 <p>Welcome to your new single-page application, built with:</p>
 <ul>
   <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
@@ -11,4 +11,66 @@
   <li><strong>Angular CLI integration</strong>. In development mode, there's no need to run <code>ng serve</code>. It runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
   <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration automatically invokes <code>ng build</code> to produce minified, ahead-of-time compiled JavaScript files.</li>
 </ul>
-<p>The <code>ClientApp</code> subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any <code>ng</code> command (e.g., <code>ng test</code>), or use <code>npm</code> to install extra packages into it.</p>
+<p>The <code>ClientApp</code> subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any <code>ng</code> command (e.g., <code>ng test</code>), or use <code>npm</code> to install extra packages into it.</p> -->
+
+<div class="content">
+  <div class="row">
+    <div class="box">
+      <div class="box-header">
+        <h1>Saque</h1>
+      </div>
+      <div class="box-body">
+        <form>
+          <div class="form-group">
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Digite o valor"
+              max="1500"
+              [(ngModel)]="withdrawalRequest.amount"
+              name="amount"
+            />
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" (click)="withdrawCash()">
+              Sacar dinheiro
+            </button>
+          </div>
+        </form>
+
+        <div class="form-group" *ngIf="errors && errors.length === 0">
+          <div class="alert alert-success">
+            <div class="bankGroup">
+              <p>Notas de R$10:</p>
+              <p class="banknotesQuantity">{{ withdrawal.tenReaisAmount }}</p>
+            </div>
+          </div>
+          <div class="alert alert-success">
+            <div class="bankGroup">
+              <p>Notas de R$20:</p>
+              <p class="banknotesQuantity">
+                {{ withdrawal.twentyReaisAmount }}
+              </p>
+            </div>
+          </div>
+          <div class="alert alert-success">
+            <div class="bankGroup">
+              <p>Notas de R$50:</p>
+              <p class="banknotesQuantity">{{ withdrawal.fiftyReaisAmount }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" *ngIf="withdrawal.message">
+          <div class="alert alert-warning" >
+            <p>{{ withdrawal.message }}</p>
+          </div>
+        </div>
+        <div class="form-group" *ngIf="errors && errors.length > 0">
+          <div class="alert alert-warning" >
+            <p *ngFor="let item of errors">{{ item }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
